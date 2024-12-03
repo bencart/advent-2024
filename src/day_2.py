@@ -26,13 +26,12 @@ def is_safe(items: list[int], almost:bool = False) -> bool:
 
     for i in range(num):
         if i == 0:
-            simulated_diffs = diffs[1:]
+            subset = diffs[1:]
         elif i == num - 1:
-            simulated_diffs = diffs[:-1]
+            subset = diffs[:-1]
         else:
-            simulated_diffs = diffs[:i - 1] + [items[i + 1] - items[i - 1]] + diffs[i + 1:]
-
-        if are_diffs_safe(simulated_diffs):
+            subset = diffs[:i - 1] + [items[i + 1] - items[i - 1]] + diffs[i + 1:]
+        if are_diffs_safe(subset):
             return True
 
     return False
