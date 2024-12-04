@@ -34,8 +34,7 @@ def get_all_strings(grid: str) -> list[str]:
         for d in range(num_rows + num_cols - 1)
     ]
     diagonals_tr_bl = [
-        "".join(
-            lines[row][row + d - (num_rows - 1)] for row in range(num_rows) if 0 <= row + d - (num_rows - 1) < num_cols)
+        "".join(lines[row][row + d - (num_rows - 1)] for row in range(num_rows) if 0 <= row + d - (num_rows - 1) < num_cols)
         for d in range(num_rows + num_cols - 1)
     ]
     return rows + columns + diagonals_tl_br + diagonals_tr_bl
