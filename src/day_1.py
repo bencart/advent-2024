@@ -1,6 +1,6 @@
-from common.input import get_data, get_data_file
 from collections import Counter
 
+from common.input import get_data, get_data_file
 
 EXAMPLE_1 = """
 3   4
@@ -19,6 +19,7 @@ EXAMPLE_2 = """
 3   9
 3   3
 """
+
 
 def get_difference(data: list[list]) -> int:
     left = sorted(data[0])

@@ -1,6 +1,4 @@
 from common.input import get_data, get_data_file
-from collections import Counter
-
 
 EXAMPLE_1 = """
 7 6 4 2 1
