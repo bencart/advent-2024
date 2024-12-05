@@ -60,7 +60,7 @@ def re_sort(update: list[int], priority: dict[int, set]) -> list[int]:
                 break
         else:
             raise ValueError("Circular dependency detected")
-    return ordered
+    return ordered[::-1]
 
 
 def is_order_correct(update: list[int], priority: dict[int, set]) -> bool:
