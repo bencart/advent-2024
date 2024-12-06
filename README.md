@@ -9,3 +9,7 @@ My Solutions:
 3. https://github.com/bencart/advent-2024/blob/main/src/day_3.py
 4. https://github.com/bencart/advent-2024/blob/main/src/day_4.py
 5. https://github.com/bencart/advent-2024/blob/main/src/day_5.py
+6. https://github.com/bencart/advent-2024/blob/main/src/day_6.py
+
+   a. https://github.com/bencart/advent-2024/blob/main/src/dayze/day_6_part2.py
+
