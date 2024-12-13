@@ -32,17 +32,36 @@ def discover_main_methods():
                     print(f"Error importing {module_name}: {e}")
                     continue
                 for name, obj in inspect.getmembers(module, inspect.isfunction):
+                    package_name, module_name = (
+                        module_name.split(".")
+                        if "." in module_name
+                        else (module_name, module_name)
+                    )
+                    day_number = (
+                        package_name.split("_")[1] if "_" in package_name else 0
+                    )
+
                     if name == "main":
-                        package_name, module_name = module_name.split(".")
-                        _, day_number = package_name.split("_")
                         main_methods.append(
                             {
                                 "day": int(day_number),
                                 "function": obj,
+                                "main": True,
                                 "alternate": len(module_name) > 6,
                                 "path": f"{package_name}/{module_name}",
                             }
                         )
+                    if name == "expected":
+                        main_methods.append(
+                            {
+                                "day": int(day_number),
+                                "function": obj,
+                                "main": False,
+                                "alternate": len(module_name) > 6,
+                                "path": f"{package_name}/{module_name}",
+                            }
+                        )
+
     result = defaultdict(list)
     for main_method in main_methods:
         result[main_method["day"]].append(main_method)
@@ -53,8 +72,8 @@ if __name__ == "__main__":
     result = discover_main_methods()
     for i in range(len(result)):
         day = i + 1
-        main = [r for r in result[day] if not r.get("alternate", False)][0]
-        alt = [r for r in result[day] if r.get("alternate", True)]
+        main = [r for r in result[day] if not r.get("alternate") and r.get("main")][0]
+        alt = [r for r in result[day] if r.get("alternate") and r.get("main")]
         print(
             f"{day}. https://github.com/bencart/advent-2024/blob/main/src/days/{main["path"]}.py"
         )
