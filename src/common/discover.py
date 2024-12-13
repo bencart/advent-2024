@@ -56,10 +56,10 @@ if __name__ == "__main__":
         main = [r for r in result[day] if not r.get("alternate", False)][0]
         alt = [r for r in result[day] if r.get("alternate", True)]
         print(
-            f"{day}. https://github.com/bencart/advent-2024/blob/main/src/{main["path"]}.py"
+            f"{day}. https://github.com/bencart/advent-2024/blob/main/src/days/{main["path"]}.py"
         )
         if alt:
             for r in alt:
                 print(
-                    f"    - https://github.com/bencart/advent-2024/blob/main/src/{r["path"]}.py"
+                    f"    - https://github.com/bencart/advent-2024/blob/main/src/days/{r["path"]}.py"
                 )
