@@ -2,7 +2,7 @@ import re
 
 from common.input import get_data_file
 
-EXAMPLE_1 = """
+EXAMPLE = """
 MMMSXXMASM
 MSAMXMSMSA
 AMXSXMAAMM
@@ -16,7 +16,7 @@ MXMXAXMASX
 """
 
 
-def find_occurrances(grid: str, target: str) -> int:
+def find_occurrences(grid: str, target: str) -> int:
     reversed = target[::-1]
     search_strings = get_all_strings(grid)
     return sum(
@@ -79,14 +79,7 @@ def get_indices(line: str, pattern: re.Pattern) -> list[int]:
     return [match.start() for match in pattern.finditer(line)]
 
 
-def main() -> None:
+def main(day: int, example: bool, part_b: bool) -> int:
     target = "XMAS"
-    example_a = EXAMPLE_1
-    print(f"Day 4 Part A Example = {find_occurrances(example_a, target)}")
-    part_a = get_data_file("day_4.txt")
-    print(f"Day 4 Part A = {find_occurrances(part_a, target)}")
-
-    example_b = EXAMPLE_1
-    print(f"Day 4 Part B Example = {find_cross_masses(example_b)}")
-    part_b = get_data_file("day_4.txt")
-    print(f"Day 4 Part B = {find_cross_masses(part_b)}")
+    source = EXAMPLE if example else get_data_file(f"day_{day}.txt")
+    return find_cross_masses(source) if part_b else find_occurrences(source, target)

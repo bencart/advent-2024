@@ -1,4 +1,5 @@
 from common.input import get_data_file
+from days.day_06.day_6 import EXAMPLE
 
 MOVEMENTS = {"^": (-1, 0, ">"), ">": (0, 1, "v"), "v": (1, 0, "<"), "<": (0, -1, "^")}
 
@@ -117,11 +118,6 @@ def count_visited_locations(data: str) -> int:
     return len(unique_locations)
 
 
-def main(example: str, data_file: str) -> None:
-    print(f"Day 6 Part A Example = {count_visited_locations(example)}")
-    part_a = get_data_file(data_file)
-    print(f"Day 6 Part A = {count_visited_locations(part_a)}")
-
-    print(f"Day 6 Part B Example = {find_loop_options(example)}")
-    part_b = get_data_file(data_file)
-    print(f"Day 6 Part B = {find_loop_options(part_b)}")
+def main(day: int, example: bool, part_b: bool) -> int:
+    source = EXAMPLE if example else get_data_file(f"day_{day}.txt")
+    return find_loop_options(source) if part_b else count_visited_locations(source)

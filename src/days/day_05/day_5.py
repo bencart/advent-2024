@@ -2,7 +2,7 @@ from collections import defaultdict
 
 from common.input import get_data_file
 
-EXAMPLE_1 = """
+EXAMPLE = """
 47|53
 97|13
 97|61
@@ -35,7 +35,7 @@ EXAMPLE_1 = """
 
 
 def sum_middles(data: str, correct_order: bool = True) -> int:
-    priority, updates = get_input(data)
+    priority, updates = parse_input(data)
     priorities = defaultdict(set)
     for key, value in priority:
         priorities[key].add(value)
@@ -58,8 +58,6 @@ def re_sort(update: list[int], priority: dict[int, set]) -> list[int]:
                 ordered.append(page)
                 pages.remove(page)
                 break
-        else:
-            raise ValueError("Circular dependency detected")
     return ordered[::-1]
 
 
@@ -72,7 +70,7 @@ def is_order_correct(update: list[int], priority: dict[int, set]) -> bool:
     return True
 
 
-def get_input(data: str) -> (list[(int, int)], list[list[int]]):
+def parse_input(data: str) -> (list[(int, int)], list[list[int]]):
     priority = []
     updates = []
     lines = data.strip().split("\n")
@@ -84,13 +82,6 @@ def get_input(data: str) -> (list[(int, int)], list[list[int]]):
     return priority, updates
 
 
-def main() -> None:
-    example_a = EXAMPLE_1
-    print(f"Day 5 Part A Example = {sum_middles(example_a)}")
-    part_a = get_data_file("day_5.txt")
-    print(f"Day 5 Part A = {sum_middles(part_a)}")
-
-    example_b = EXAMPLE_1
-    print(f"Day 5 Part B Example = {sum_middles(example_b, False)}")
-    part_b = get_data_file("day_5.txt")
-    print(f"Day 5 Part B = {sum_middles(part_b, False)}")
+def main(day: int, example: bool, part_b: bool) -> int:
+    source = EXAMPLE if example else get_data_file(f"day_{day}.txt")
+    return sum_middles(source, not part_b)

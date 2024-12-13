@@ -26,3 +26,17 @@ def get_data(data: str, column: bool = False):
         return rows
     columns = list(zip(*rows))
     return [list(col) for col in columns]
+
+
+def load_grid(data: str) -> list[list[str]]:
+    lines = data.strip().splitlines()
+    return [list(line) for line in lines if line.strip()]
+
+
+def load_dict_grid(data: str) -> (dict[str], int, int):
+    grid = load_grid(data)
+    return (
+        {(r, c): grid[r][c] for r in range(len(grid)) for c in range(len(grid[0]))},
+        len(grid),
+        len(grid[0]),
+    )

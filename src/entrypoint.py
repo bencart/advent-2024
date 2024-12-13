@@ -1,14 +1,10 @@
-from day_1 import main as day_1
-from day_2 import main as day_2
-from day_3 import main as day_3
-from day_4 import main as day_4
-from day_5 import main as day_5
-from day_6 import main as day_6
+from common.discover import discover_main_methods
+from common.execution import execute_day_methods
 
 if __name__ == "__main__":
-    day_1()
-    day_2()
-    day_3()
-    day_4()
-    day_5()
-    day_6()
+    ONLY_TODAY = False
+    main_methods = discover_main_methods()
+
+    for day in sorted(main_methods.keys()):
+        if not ONLY_TODAY or day == len(main_methods):
+            execute_day_methods(day, main_methods[day], len(main_methods))

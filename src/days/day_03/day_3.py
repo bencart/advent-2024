@@ -11,8 +11,8 @@ DONT_RE = re.compile(r"don't\(\).*", re.DOTALL)
 
 
 def get_multiples(data: str, filtered: bool = False) -> int:
-    input = filter_donts(data) if filtered else data
-    matches = MUL_RE.findall(input)
+    text = filter_donts(data) if filtered else data
+    matches = MUL_RE.findall(text)
     return sum(int(a) * int(b) for a, b in matches)
 
 
@@ -20,13 +20,10 @@ def filter_donts(data: str) -> str:
     return DONT_RE.sub("", DO_RE.sub("", data))
 
 
-def main() -> None:
-    example_a = EXAMPLE_1
-    print(f"Day 3 Part A Example = {get_multiples(example_a)}")
-    part_a = get_data_file("day_3.txt")
-    print(f"Day 3 Part A = {get_multiples(part_a)}")
-
-    example_b = EXAMPLE_2
-    print(f"Day 3 Part B Example = {get_multiples(example_b, filtered=True)}")
-    part_b = get_data_file("day_3.txt")
-    print(f"Day 3 Part B = {get_multiples(part_b, filtered=True)}")
+def main(day: int, example: bool, part_b: bool) -> int:
+    source = (
+        EXAMPLE_2
+        if example and part_b
+        else EXAMPLE_1 if example else get_data_file(f"day_{day}.txt")
+    )
+    return get_multiples(source, filtered=part_b)

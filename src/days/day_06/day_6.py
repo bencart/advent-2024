@@ -1,9 +1,8 @@
 import re
 
 from common.input import get_data_file
-from dayze.day6_part2 import main as part_b
 
-EXAMPLE_1 = """
+EXAMPLE = """
 ....#.....
 .........#
 ..........
@@ -70,10 +69,6 @@ def movement(match: re.Match[str]) -> str:
     return match.group(0)
 
 
-def main() -> None:
-    example_a = EXAMPLE_1
-    print(f"Day 6 Part A Example = {visited_location_count(example_a)}")
-    part_a = get_data_file("day_6.txt")
-    print(f"Day 6 Part A = {visited_location_count(part_a)}")
-
-    part_b(EXAMPLE_1, "day_6.txt")
+def main(day: int, example: bool, part_b: bool) -> int:
+    source = EXAMPLE if example else get_data_file(f"day_{day}.txt")
+    return visited_location_count(source) if not part_b else 0
