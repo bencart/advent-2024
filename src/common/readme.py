@@ -9,7 +9,7 @@ def get_readme_path() -> str:
     return os.path.normpath(relative_path)
 
 
-def write_header():
+def write_readme_header():
     with open(get_readme_path(), "w", encoding="utf-8") as f:
         f.write(
             "\n".join(
@@ -18,14 +18,39 @@ def write_header():
                     "",
                     "https://adventofcode.com/2024/about",
                     "",
-                    "## My Solutions:",
                     "",
                 ]
             )
         )
 
 
-def write_result(result: str):
+def write_readme_solution_links(main_methods: dict[int, list]):
+    lines = ["## My Solutions:", ""]
+
+    for day in sorted(main_methods.keys()):
+        day_methods = main_methods[day]
+        main = [r for r in day_methods if not r.get("alternate") and r.get("main")][0]
+        alt = [r for r in day_methods if r.get("alternate") and r.get("main")]
+        lines.append(
+            f"{day}. https://github.com/bencart/advent-2024/blob/main/src/days/{main["path"]}.py"
+        )
+        if alt:
+            for r in alt:
+                lines.append(
+                    f"    - https://github.com/bencart/advent-2024/blob/main/src/days/{r["path"]}.py"
+                )
+    write_lines(lines + [""])
+
+
+def write_readme_output_header():
+    write_lines(["## My Output:", "", "```text"])
+
+
+def write_readme_footer():
+    write_lines(["```", "", ""])
+
+
+def write_readme_result(result: str):
     if CORRECT in result or WRONG in result:
         write_lines([result])
     else:

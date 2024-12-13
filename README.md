@@ -3,6 +3,7 @@
 https://adventofcode.com/2024/about
 
 ## My Solutions:
+
 1. https://github.com/bencart/advent-2024/blob/main/src/days/day_1/day_1.py
 2. https://github.com/bencart/advent-2024/blob/main/src/days/day_2/day_2.py
 3. https://github.com/bencart/advent-2024/blob/main/src/days/day_3/day_3.py
@@ -24,62 +25,63 @@ https://adventofcode.com/2024/about
 
 ```text
 Day  1 Part A Example    Execution Time:     0.02 ms Result : 11  ✅
-Day  1 Part A            Execution Time:     2.26 ms 
-Day  1 Part B Example    Execution Time:     0.05 ms Result : 31  ✅
-Day  1 Part B            Execution Time:     1.19 ms 
+Day  1 Part A            Execution Time:     1.47 ms 
+Day  1 Part B Example    Execution Time:     0.06 ms Result : 31  ✅
+Day  1 Part B            Execution Time:     1.85 ms 
 Day  2 Part A Example    Execution Time:     0.04 ms Result : 2  ✅
-Day  2 Part A            Execution Time:     4.29 ms 
-Day  2 Part B Example    Execution Time:     0.07 ms Result : 4  ✅
-Day  2 Part B            Execution Time:    13.86 ms 
-Day  3 Part A Example    Execution Time:     0.03 ms Result : 161  ✅
-Day  3 Part A            Execution Time:     0.62 ms 
+Day  2 Part A            Execution Time:     4.30 ms 
+Day  2 Part B Example    Execution Time:     0.09 ms Result : 4  ✅
+Day  2 Part B            Execution Time:    13.36 ms 
+Day  3 Part A Example    Execution Time:     0.02 ms Result : 161  ✅
+Day  3 Part A            Execution Time:     0.54 ms 
 Day  3 Part B Example    Execution Time:     0.01 ms Result : 48  ✅
-Day  3 Part B            Execution Time:     0.49 ms 
-Day  4 Part A Example    Execution Time:     0.12 ms Result : 18  ✅
-Day  4 Part A            Execution Time:    10.82 ms 
-Day  4 Part B Example    Execution Time:     0.09 ms Result : 9  ✅
-Day  4 Part B            Execution Time:    10.06 ms 
-Day  5 Part A Example    Execution Time:     0.09 ms Result : 143  ✅
-Day  5 Part A            Execution Time:     2.57 ms 
-Day  5 Part B Example    Execution Time:     0.08 ms Result : 123  ✅
-Day  5 Part B            Execution Time:     5.70 ms 
-Day  6 Part A Example    Execution Time:     0.17 ms Result : 41  ✅
-Day  6 Part A            Execution Time:   128.27 ms 
-Day  6 Part A Example  * Execution Time:     0.05 ms Result : 41  ✅
-Day  6 Part A          * Execution Time:     4.02 ms 
-Day  6 Part B Example  * Execution Time:     0.40 ms Result : 6  ✅
-Day  6 Part B          * Execution Time:     2.37  s 
-Day  7 Part A Example    Execution Time:     0.11 ms Result : 3749  ✅
-Day  7 Part A            Execution Time:    66.34 ms 
-Day  7 Part B Example    Execution Time:     0.11 ms Result : 11387  ✅
-Day  7 Part B            Execution Time:     3.66  s 
+Day  3 Part B            Execution Time:     0.46 ms 
+Day  4 Part A Example    Execution Time:     0.11 ms Result : 18  ✅
+Day  4 Part A            Execution Time:     9.64 ms 
+Day  4 Part B Example    Execution Time:     0.07 ms Result : 9  ✅
+Day  4 Part B            Execution Time:     8.50 ms 
+Day  5 Part A Example    Execution Time:     0.05 ms Result : 143  ✅
+Day  5 Part A            Execution Time:     2.27 ms 
+Day  5 Part B Example    Execution Time:     0.06 ms Result : 123  ✅
+Day  5 Part B            Execution Time:     5.26 ms 
+Day  6 Part A Example    Execution Time:     0.14 ms Result : 41  ✅
+Day  6 Part A            Execution Time:   121.83 ms 
+Day  6 Part A Example  * Execution Time:     0.04 ms Result : 41  ✅
+Day  6 Part A          * Execution Time:     3.74 ms 
+Day  6 Part B Example  * Execution Time:     0.22 ms Result : 6  ✅
+Day  6 Part B          * Execution Time:     2.45  s 
+Day  7 Part A Example    Execution Time:     0.07 ms Result : 3749  ✅
+Day  7 Part A            Execution Time:    58.33 ms 
+Day  7 Part B Example    Execution Time:     0.09 ms Result : 11387  ✅
+Day  7 Part B            Execution Time:     3.40  s 
 Day  8 Part A Example    Execution Time:     0.07 ms Result : 14  ✅
-Day  8 Part A            Execution Time:     2.12 ms 
+Day  8 Part A            Execution Time:     1.90 ms 
 Day  8 Part B Example    Execution Time:     0.08 ms Result : 34  ✅
-Day  8 Part B            Execution Time:     2.77 ms 
+Day  8 Part B            Execution Time:     3.02 ms 
 Day  9 Part A Example    Execution Time:     0.03 ms Result : 1928  ✅
-Day  9 Part A            Execution Time:    27.02 ms 
+Day  9 Part A            Execution Time:    26.50 ms 
 Day  9 Part B Example    Execution Time:     0.04 ms Result : 2858  ✅
-Day  9 Part B            Execution Time:     2.05  s 
+Day  9 Part B            Execution Time:     2.23  s 
 Day 10 Part A Example    Execution Time:     0.09 ms Result : 36  ✅
-Day 10 Part A            Execution Time:     3.66 ms 
-Day 10 Part B Example    Execution Time:     0.12 ms Result : 81  ✅
-Day 10 Part B            Execution Time:     2.55 ms 
-Day 11 Part A Example    Execution Time:    39.73 ms Result : 55312  ✅
-Day 11 Part A            Execution Time:   150.78 ms 
-Day 11 Part A Example  * Execution Time:     0.75 ms Result : 55312  ✅
-Day 11 Part A          * Execution Time:     2.48 ms 
-Day 11 Part B Example  * Execution Time:     2.94 ms 
-Day 11 Part B          * Execution Time:   114.23 ms 
-Day 12 Part A Example    Execution Time:     0.27 ms Result : 1930  ✅
-Day 12 Part A            Execution Time:   219.62 ms 
+Day 10 Part A            Execution Time:     4.52 ms 
+Day 10 Part B Example    Execution Time:     0.08 ms Result : 81  ✅
+Day 10 Part B            Execution Time:     2.98 ms 
+Day 11 Part A Example    Execution Time:    40.95 ms Result : 55312  ✅
+Day 11 Part A            Execution Time:   171.71 ms 
+Day 11 Part A Example  * Execution Time:     1.16 ms Result : 55312  ✅
+Day 11 Part A          * Execution Time:     3.90 ms 
+Day 11 Part B Example  * Execution Time:     3.21 ms 
+Day 11 Part B          * Execution Time:   115.12 ms 
+Day 12 Part A Example    Execution Time:     0.24 ms Result : 1930  ✅
+Day 12 Part A            Execution Time:   227.16 ms 
 Day 12 Part B Example    Execution Time:     0.25 ms Result : 1206  ✅
-Day 12 Part B            Execution Time:   204.15 ms 
-Day 13 Part A Example    Execution Time:     0.21 ms Result : 480  ✅
-Day 13 Part A            Execution Time:    17.42 ms 
-Day 13 Part A Example  * Execution Time:     0.04 ms Result : 480  ✅
-Day 13 Part A          * Execution Time:     1.23 ms 
+Day 12 Part B            Execution Time:   242.14 ms 
+Day 13 Part A Example    Execution Time:     0.29 ms Result : 480  ✅
+Day 13 Part A            Execution Time:    18.54 ms 
+Day 13 Part A Example  * Execution Time:     0.05 ms Result : 480  ✅
+Day 13 Part A          * Execution Time:     1.21 ms 
 Day 13 Part B Example  * Execution Time:     0.03 ms 
-Day 13 Part B          * Execution Time:     1.43 ms 
+Day 13 Part B          * Execution Time:     1.27 ms 
 ```
+
 
