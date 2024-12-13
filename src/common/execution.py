@@ -1,5 +1,7 @@
 import time
 
+from common.readme import write_result, write_lines
+
 
 def format_execution_time(seconds: float) -> str:
     """Format execution time in milliseconds or seconds."""
@@ -19,6 +21,7 @@ def redirect_and_time(
     example: bool,
     part_b: bool,
     alternate: bool = False,
+    short: bool = False,
     expected_value: int = None,
 ):
     start_time = time.time()
@@ -27,7 +30,7 @@ def redirect_and_time(
     if expected_value is not None and result == expected_value:
         accurate = " ✅"
     elif expected_value is not None:
-        accurate = " ❌"
+        accurate = " "
 
     end_time = time.time()
     execution_time = format_execution_time(end_time - start_time)
@@ -36,9 +39,10 @@ def redirect_and_time(
     alternate = "*" if alternate else " "
     exec_type = "Example " if example else "        "
 
-    print(
-        f"Day {format_day(day)} Part {part} {exec_type} {alternate} Execution Time: {execution_time} Result : {result} {accurate}"
-    )
+    output = f"Day {format_day(day)} Part {part} {exec_type} {alternate} Execution Time: {execution_time} Result : {result} {accurate}"
+    if not short:
+        write_result(output)
+    print(output)
     return result
 
 
@@ -49,18 +53,21 @@ def execute_day(
     got_butt_kicked: bool,
     alternate: bool,
     expected: callable,
+    short: bool,
 ):
     expected_value = expected(False) if expected else None
-    redirect_and_time(func, day, True, False, alternate, expected_value)
-    redirect_and_time(func, day, False, False, alternate)
+    redirect_and_time(func, day, True, False, alternate, short, expected_value)
+    redirect_and_time(func, day, False, False, alternate, short)
 
     if not got_butt_kicked or alternate:
         expected_value = expected(True) if expected else None
-        redirect_and_time(func, day, True, True, alternate, expected_value)
-        redirect_and_time(func, day, False, True, alternate)
+        redirect_and_time(func, day, True, True, alternate, short, expected_value)
+        redirect_and_time(func, day, False, True, alternate, short)
 
 
-def execute_day_methods(day: int, day_methods: list[dict[str, any]], days: int):
+def execute_day_methods(
+    day: int, day_methods: list[dict[str, any]], days: int, short: bool
+):
     expected_method = None
     bad_day = False
     for day_method in day_methods:
@@ -71,8 +78,11 @@ def execute_day_methods(day: int, day_methods: list[dict[str, any]], days: int):
     for day_method in day_methods:
         main_method = day_method.get("function")
         if not day_method.get("alternate") and day_method.get("main"):
-            execute_day(main_method, day, days, bad_day, False, expected_method)
+            execute_day(main_method, day, days, bad_day, False, expected_method, short)
     for day_method in day_methods:
         main_method = day_method.get("function")
         if day_method.get("alternate") and day_method.get("main"):
-            execute_day(main_method, day, days, bad_day, True, expected_method)
+            execute_day(main_method, day, days, bad_day, True, expected_method, short)
+
+    if not short and day == days:
+        write_lines(["```", ""])

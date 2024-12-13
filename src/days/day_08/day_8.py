@@ -66,7 +66,3 @@ def count_unique_antinodes(data: str, harmonics: bool):
 def main(day: int, example: bool, part_b: bool) -> int:
     source = EXAMPLE if example else get_data_file(f"day_{day}.txt")
     return count_unique_antinodes(source, harmonics=part_b)
-
-
-if __name__ == "__main__":
-    print(main(8, True, False))

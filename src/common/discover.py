@@ -3,6 +3,8 @@ import inspect
 import os
 from collections import defaultdict
 
+from common.readme import write_header, write_lines
+
 
 def get_day_package_path() -> str:
     current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -10,7 +12,9 @@ def get_day_package_path() -> str:
     return os.path.normpath(relative_path)
 
 
-def discover_main_methods():
+def discover_main_methods(short: bool = True):
+    if not short:
+        print_readme()
     package_path = get_day_package_path()
     main_methods = []
 
@@ -68,17 +72,25 @@ def discover_main_methods():
     return result
 
 
-if __name__ == "__main__":
+def print_readme():
+    write_header()
+    lines = []
     result = discover_main_methods()
     for i in range(len(result)):
         day = i + 1
         main = [r for r in result[day] if not r.get("alternate") and r.get("main")][0]
         alt = [r for r in result[day] if r.get("alternate") and r.get("main")]
-        print(
+        lines.append(
             f"{day}. https://github.com/bencart/advent-2024/blob/main/src/days/{main["path"]}.py"
         )
         if alt:
             for r in alt:
-                print(
+                lines.append(
                     f"    - https://github.com/bencart/advent-2024/blob/main/src/days/{r["path"]}.py"
                 )
+
+    lines.append("")
+    lines.append("## My Output:")
+    lines.append("")
+    lines.append("```text")
+    write_lines(lines)
