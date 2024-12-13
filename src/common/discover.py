@@ -40,9 +40,26 @@ def discover_main_methods():
                                 "day": int(day_number),
                                 "function": obj,
                                 "alternate": len(module_name) > 6,
+                                "path": f"{package_name}/{module_name}",
                             }
                         )
     result = defaultdict(list)
     for main_method in main_methods:
         result[main_method["day"]].append(main_method)
     return result
+
+
+if __name__ == "__main__":
+    result = discover_main_methods()
+    for i in range(len(result)):
+        day = i + 1
+        main = [r for r in result[day] if not r.get("alternate", False)][0]
+        alt = [r for r in result[day] if r.get("alternate", True)]
+        print(
+            f"{day}. https://github.com/bencart/advent-2024/blob/main/src/{main["path"]}.py"
+        )
+        if alt:
+            for r in alt:
+                print(
+                    f"    - https://github.com/bencart/advent-2024/blob/main/src/{r["path"]}.py"
+                )
