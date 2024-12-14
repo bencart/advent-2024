@@ -127,12 +127,12 @@ def get_ninths(robots: list[Robot]) -> (int, int, int, int):
     return {k: v for k, v in ninths.items() if k != MIDDLE}
 
 
-def calculate_chi_square(ninths: dict[tuple[int, int], int]) -> (float, float):
+def calculate_chi_square(ninths: dict[tuple[int, int], int]) -> float:
     robots = sum(ninths.values())
     observed = list(ninths.values())
     expected_count = robots / len(observed)
     chi_square = sum((o - expected_count) ** 2 / expected_count for o in observed)
-    return chi_square, expected_count
+    return chi_square
 
 
 def find_tree(data: str, size: tuple[int, int]):
@@ -147,9 +147,9 @@ def find_tree(data: str, size: tuple[int, int]):
 
         ninths = get_ninths(robots)
         calculate_chi_square(ninths)
-        chi_nova, expected_nova = calculate_chi_square(ninths)
+        chi_ninth = calculate_chi_square(ninths)
 
-        if chi_nova > ninth_crit:
+        if chi_ninth > ninth_crit:
             return i
 
 
