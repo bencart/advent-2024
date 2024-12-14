@@ -27,5 +27,4 @@ def find_tree(data: str, size: tuple[int, int]) -> int:
 def main(day: int, example: bool, part_b: bool) -> int:
     source = EXAMPLE if example else get_data_file(f"day_{day}.txt")
     size = (11, 7) if example else (101, 103)
-    seconds = 100
-    return find_tree(source, size) if part_b else safest_quadrant(source, size, seconds)
+    return find_tree(source, size) if part_b else safest_quadrant(source, size, 100)
