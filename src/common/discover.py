@@ -26,20 +26,19 @@ def discover_main_methods(year: int = 2024):
 
                 spec = importlib.util.spec_from_file_location(module_name, file_path)
                 module = importlib.util.module_from_spec(spec)
+
                 try:
                     spec.loader.exec_module(module)
                 except Exception as e:
                     print(f"Error importing {module_name}: {e}")
                     continue
                 for name, obj in inspect.getmembers(module, inspect.isfunction):
-                    package_name, module_name = (
+                    p_name, m_name = (
                         module_name.split(".")
                         if "." in module_name
                         else (module_name, module_name)
                     )
-                    day_number = (
-                        package_name.split("_")[1] if "_" in package_name else 0
-                    )
+                    day_number = p_name.split("_")[1] if "_" in p_name else 0
 
                     if name == "main":
                         main_methods.append(
@@ -47,8 +46,8 @@ def discover_main_methods(year: int = 2024):
                                 "day": int(day_number),
                                 "function": obj,
                                 "main": True,
-                                "alternate": len(module_name) > 6,
-                                "path": f"{package_name}/{module_name}",
+                                "alternate": len(m_name) > 6,
+                                "path": f"{p_name}/{m_name}",
                             }
                         )
                     if name == "expected":
@@ -57,8 +56,8 @@ def discover_main_methods(year: int = 2024):
                                 "day": int(day_number),
                                 "function": obj,
                                 "main": False,
-                                "alternate": len(module_name) > 6,
-                                "path": f"{package_name}/{module_name}",
+                                "alternate": len(m_name) > 6,
+                                "path": f"{p_name}/{m_name}",
                             }
                         )
 

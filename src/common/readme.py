@@ -1,6 +1,6 @@
 import os
 
-from common.constants import CORRECT, WRONG
+from common.constants import CORRECT, WRONG, YEAR
 
 
 def get_readme_path() -> str:
@@ -14,9 +14,9 @@ def write_readme_header():
         f.write(
             "\n".join(
                 [
-                    "# Advent of Code 2024",
+                    f"# Advent of Code {YEAR}",
                     "",
-                    "https://adventofcode.com/2024/about",
+                    f"https://adventofcode.com/{YEAR}/about",
                     "",
                     "",
                 ]
@@ -37,7 +37,7 @@ def write_readme_solution_links(main_methods: dict[int, list]):
         if alt:
             for r in alt:
                 lines.append(
-                    f"    - https://github.com/bencart/advent-2024/blob/main/src/days/{r["path"]}.py"
+                    f"    - https://github.com/bencart/advent-2024/blob/main/src/aoc_{YEAR}/{r["path"]}.py"
                 )
     write_lines(lines + [""])
 
