@@ -1,5 +1,5 @@
+from aoc_2024.day_06.day_6 import EXAMPLE
 from common.input import get_data_file
-from days.day_06.day_6 import EXAMPLE
 
 MOVEMENTS = {"^": (-1, 0, ">"), ">": (0, 1, "v"), "v": (1, 0, "<"), "<": (0, -1, "^")}
 

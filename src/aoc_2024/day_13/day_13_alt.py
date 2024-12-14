@@ -1,5 +1,6 @@
+from aoc_2024.day_13.day_13 import Machine, parse_machines, TOKENS_A, TOKENS_B, EXAMPLE
 from common.input import get_data_file
-from days.day_13.day_13 import Machine, parse_machines, TOKENS_A, TOKENS_B, EXAMPLE
+
 
 def solve_for_machine(machine: Machine) -> int:
     # a * a.x + b * b.x = p.x

@@ -1,7 +1,7 @@
 from collections import defaultdict
 
+from aoc_2024.day_11.day_11 import EXAMPLE
 from common.input import get_data_file
-from days.day_11.day_11 import EXAMPLE
 
 
 def blink_fast(stones: dict[int, int]) -> dict[int, int]:

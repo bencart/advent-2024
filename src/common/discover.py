@@ -4,14 +4,14 @@ import os
 from collections import defaultdict
 
 
-def get_day_package_path() -> str:
+def get_day_package_path(year: int) -> str:
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    relative_path = os.path.join(current_dir, "..", "days")
+    relative_path = os.path.join(current_dir, "..", f"aoc_{year}")
     return os.path.normpath(relative_path)
 
 
-def discover_main_methods():
-    package_path = get_day_package_path()
+def discover_main_methods(year: int = 2024):
+    package_path = get_day_package_path(year)
     main_methods = []
 
     for root, _, files in os.walk(package_path):

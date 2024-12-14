@@ -1,12 +1,15 @@
+import io
 import time
+from contextlib import redirect_stdout
 
+from common.constants import YEAR
 from common.discover import discover_main_methods
 from common.readme import (
     write_readme_header,
     write_readme_solution_links,
     write_readme_output_header,
     write_readme_footer,
-    write_readme_result
+    write_readme_result,
 )
 
 
@@ -28,11 +31,17 @@ def redirect_and_time(
     example: bool,
     part_b: bool,
     alternate: bool = False,
-    only_today: bool = False,
+    write_readme: bool = False,
+    suppres_output: bool = False,
     expected_value: int = None,
 ):
-    start_time = time.time()
-    result = func(day=day, example=example, part_b=part_b)
+    buffer = io.StringIO()
+    with redirect_stdout(buffer):
+        start_time = time.time()
+        result = func(day=day, example=example, part_b=part_b)
+    if not suppres_output:
+        print(buffer.getvalue())
+
     accurate = ""
     if expected_value is not None and result == expected_value:
         accurate = " ✅"
@@ -47,7 +56,7 @@ def redirect_and_time(
     exec_type = "Example " if example else "        "
 
     output = f"Day {format_day(day)} Part {part} {exec_type} {alternate} Execution Time: {execution_time} Result : {result} {accurate}"
-    if not only_today:
+    if write_readme:
         write_readme_result(output)
     print(output)
     return result
@@ -60,20 +69,42 @@ def execute_day(
     got_butt_kicked: bool,
     alternate: bool,
     expected: callable,
-    only_today: bool,
+    write_readme: bool,
 ):
     expected_value = expected(False) if expected else None
-    redirect_and_time(func, day, True, False, alternate, only_today, expected_value)
-    redirect_and_time(func, day, False, False, alternate, only_today)
+    redirect_and_time(
+        func,
+        day,
+        True,
+        False,
+        alternate,
+        write_readme,
+        day != current_day,
+        expected_value,
+    )
+    redirect_and_time(
+        func, day, False, False, alternate, write_readme, day != current_day
+    )
 
     if not got_butt_kicked or alternate:
         expected_value = expected(True) if expected else None
-        redirect_and_time(func, day, True, True, alternate, only_today, expected_value)
-        redirect_and_time(func, day, False, True, alternate, only_today)
+        redirect_and_time(
+            func,
+            day,
+            True,
+            True,
+            alternate,
+            write_readme,
+            day != current_day,
+            expected_value,
+        )
+        redirect_and_time(
+            func, day, False, True, alternate, write_readme, day != current_day
+        )
 
 
 def execute_day_methods(
-    day: int, day_methods: list[dict[str, any]], days: int, only_today: bool
+    day: int, day_methods: list[dict[str, any]], days: int, write_readme: bool
 ):
     expected_method = None
     bad_day = False
@@ -86,29 +117,30 @@ def execute_day_methods(
         main_method = day_method.get("function")
         if not day_method.get("alternate") and day_method.get("main"):
             execute_day(
-                main_method, day, days, bad_day, False, expected_method, only_today
+                main_method, day, days, bad_day, False, expected_method, write_readme
             )
     for day_method in day_methods:
         main_method = day_method.get("function")
         if day_method.get("alternate") and day_method.get("main"):
             execute_day(
-                main_method, day, days, bad_day, True, expected_method, only_today
+                main_method, day, days, bad_day, True, expected_method, write_readme
             )
 
 
-def execute_advent(only_today: bool):
-    if not only_today:
+def execute_advent(only_today: bool, year: int = YEAR):
+    write_readme = year == YEAR and not only_today
+    if write_readme:
         write_readme_header()
 
-    main_methods = discover_main_methods()
+    main_methods = discover_main_methods(year)
 
-    if not only_today:
+    if write_readme:
         write_readme_solution_links(main_methods)
         write_readme_output_header()
 
     for day in sorted(main_methods.keys()):
         if not only_today or day == len(main_methods):
-            execute_day_methods(day, main_methods[day], len(main_methods), only_today)
+            execute_day_methods(day, main_methods[day], len(main_methods), write_readme)
 
-    if not only_today:
+    if write_readme:
         write_readme_footer()
