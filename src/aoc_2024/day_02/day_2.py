@@ -40,7 +40,7 @@ def count_safe(rows: list[list[int]], almost: bool = False) -> int:
     return sum(1 for row in rows if is_safe(row, almost))
 
 
-def main(day: int, example: bool, part_b: bool) -> int:
-    source = EXAMPLE if example else get_data_file(f"day_{day}.txt")
+def main(year: int, day: int, example: bool, part_b: bool) -> int:
+    source = EXAMPLE if example else get_data_file(year, day)
     data = get_data(source)
     return count_safe(data, almost=part_b)

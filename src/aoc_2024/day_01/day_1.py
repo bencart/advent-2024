@@ -24,7 +24,7 @@ def get_frequency(data: list[list]) -> int:
     return sum(item * right.get(item, 0) for item in left)
 
 
-def main(day: int, example: bool, part_b: bool) -> int:
-    source = EXAMPLE if example else get_data_file(f"day_{day}.txt")
+def main(year: int, day: int, example: bool, part_b: bool) -> int:
+    source = EXAMPLE if example else get_data_file(year, day)
     data = get_data(source, True)
     return get_frequency(data) if part_b else get_difference(data)

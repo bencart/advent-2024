@@ -34,6 +34,6 @@ def least_tokens_with_math(data: str, make_it_large: int) -> int:
     return least_tokens
 
 
-def main(day: int, example: bool, part_b: bool) -> int:
-    source = EXAMPLE if example else get_data_file(f"day_{day}.txt")
+def main(year: int, day: int, example: bool, part_b: bool) -> int:
+    source = EXAMPLE if example else get_data_file(year, day)
     return least_tokens_with_math(source, 10000000000000 if part_b else 0)

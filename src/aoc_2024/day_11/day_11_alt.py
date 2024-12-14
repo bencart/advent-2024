@@ -33,7 +33,7 @@ def count_stones_fast(data: str, blinks: int) -> int:
     return sum(stones.values())
 
 
-def main(day: int, example: bool, part_b: bool) -> int:
-    source = EXAMPLE if example else get_data_file(f"day_{day}.txt")
+def main(year: int, day: int, example: bool, part_b: bool) -> int:
+    source = EXAMPLE if example else get_data_file(year, day)
     blinks = 75 if part_b else 25
     return count_stones_fast(source, blinks)

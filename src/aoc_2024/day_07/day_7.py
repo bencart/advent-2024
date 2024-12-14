@@ -52,6 +52,6 @@ def is_calcuable(equation: tuple[int, list[int]], concatenate: bool = False) -> 
     return total in running_totals
 
 
-def main(day: int, example: bool, part_b: bool) -> int:
-    source = EXAMPLE if example else get_data_file(f"day_{day}.txt")
+def main(year: int, day: int, example: bool, part_b: bool) -> int:
+    source = EXAMPLE if example else get_data_file(year, day)
     return sum_possibles(source, concatenate=part_b)

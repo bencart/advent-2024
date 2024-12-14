@@ -28,7 +28,7 @@ def count_stones(data: str, blinks: int) -> int:
     return len(stones)
 
 
-def main(day: int, example: bool, part_b: bool) -> int:
-    source = EXAMPLE if example else get_data_file(f"day_{day}.txt")
+def main(year: int, day: int, example: bool, part_b: bool) -> int:
+    source = EXAMPLE if example else get_data_file(year, day)
     blinks = 75 if part_b else 25
     return count_stones(source, blinks)

@@ -27,6 +27,7 @@ def format_day(day: int) -> str:
 
 def redirect_and_time(
     func: callable,
+    year: int,
     day: int,
     example: bool,
     part_b: bool,
@@ -38,7 +39,7 @@ def redirect_and_time(
     buffer = io.StringIO()
     with redirect_stdout(buffer):
         start_time = time.time()
-        result = func(day=day, example=example, part_b=part_b)
+        result = func(year=year, day=day, example=example, part_b=part_b)
     if not suppres_output:
         print(buffer.getvalue())
 
@@ -64,47 +65,31 @@ def redirect_and_time(
 
 def execute_day(
     func: callable,
+    year: int,
     day: int,
     current_day: int,
     got_butt_kicked: bool,
-    alternate: bool,
+    alt: bool,
     expected: callable,
-    write_readme: bool,
+    readme: bool,
 ):
-    expected_value = expected(False) if expected else None
-    redirect_and_time(
-        func,
-        day,
-        True,
-        False,
-        alternate,
-        write_readme,
-        day != current_day,
-        expected_value,
-    )
-    redirect_and_time(
-        func, day, False, False, alternate, write_readme, day != current_day
-    )
+    result = expected(False) if expected else None
+    suppress = day != current_day
+    redirect_and_time(func, year, day, True, False, alt, readme, suppress, result)
+    redirect_and_time(func, year, day, False, False, alt, readme, suppress)
 
-    if not got_butt_kicked or alternate:
-        expected_value = expected(True) if expected else None
-        redirect_and_time(
-            func,
-            day,
-            True,
-            True,
-            alternate,
-            write_readme,
-            day != current_day,
-            expected_value,
-        )
-        redirect_and_time(
-            func, day, False, True, alternate, write_readme, day != current_day
-        )
+    if not got_butt_kicked or alt:
+        result = expected(True) if expected else None
+        redirect_and_time(func, year, day, True, True, alt, readme, suppress, result)
+        redirect_and_time(func, year, day, False, True, alt, readme, suppress)
 
 
 def execute_day_methods(
-    day: int, day_methods: list[dict[str, any]], days: int, write_readme: bool
+    year: int,
+    day: int,
+    day_methods: list[dict[str, any]],
+    days: int,
+    write_readme: bool,
 ):
     expected_method = None
     bad_day = False
@@ -117,13 +102,27 @@ def execute_day_methods(
         main_method = day_method.get("function")
         if not day_method.get("alternate") and day_method.get("main"):
             execute_day(
-                main_method, day, days, bad_day, False, expected_method, write_readme
+                main_method,
+                year,
+                day,
+                days,
+                bad_day,
+                False,
+                expected_method,
+                write_readme,
             )
     for day_method in day_methods:
         main_method = day_method.get("function")
         if day_method.get("alternate") and day_method.get("main"):
             execute_day(
-                main_method, day, days, bad_day, True, expected_method, write_readme
+                main_method,
+                year,
+                day,
+                days,
+                bad_day,
+                True,
+                expected_method,
+                write_readme,
             )
 
 
@@ -140,7 +139,9 @@ def execute_advent(only_today: bool, year: int = YEAR):
 
     for day in sorted(main_methods.keys()):
         if not only_today or day == len(main_methods):
-            execute_day_methods(day, main_methods[day], len(main_methods), write_readme)
+            execute_day_methods(
+                year, day, main_methods[day], len(main_methods), write_readme
+            )
 
     if write_readme:
         write_readme_footer()

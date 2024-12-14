@@ -118,6 +118,6 @@ def count_visited_locations(data: str) -> int:
     return len(unique_locations)
 
 
-def main(day: int, example: bool, part_b: bool) -> int:
-    source = EXAMPLE if example else get_data_file(f"day_{day}.txt")
+def main(year: int, day: int, example: bool, part_b: bool) -> int:
+    source = EXAMPLE if example else get_data_file(year, day)
     return find_loop_options(source) if part_b else count_visited_locations(source)

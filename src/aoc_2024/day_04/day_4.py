@@ -79,7 +79,7 @@ def get_indices(line: str, pattern: re.Pattern) -> list[int]:
     return [match.start() for match in pattern.finditer(line)]
 
 
-def main(day: int, example: bool, part_b: bool) -> int:
+def main(year: int, day: int, example: bool, part_b: bool) -> int:
     target = "XMAS"
-    source = EXAMPLE if example else get_data_file(f"day_{day}.txt")
+    source = EXAMPLE if example else get_data_file(year, day)
     return find_cross_masses(source) if part_b else find_occurrences(source, target)

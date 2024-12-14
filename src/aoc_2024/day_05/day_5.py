@@ -82,6 +82,6 @@ def parse_input(data: str) -> (list[(int, int)], list[list[int]]):
     return priority, updates
 
 
-def main(day: int, example: bool, part_b: bool) -> int:
-    source = EXAMPLE if example else get_data_file(f"day_{day}.txt")
+def main(year: int, day: int, example: bool, part_b: bool) -> int:
+    source = EXAMPLE if example else get_data_file(year, day)
     return sum_middles(source, not part_b)

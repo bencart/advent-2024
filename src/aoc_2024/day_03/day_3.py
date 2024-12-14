@@ -20,10 +20,10 @@ def filter_donts(data: str) -> str:
     return DONT_RE.sub("", DO_RE.sub("", data))
 
 
-def main(day: int, example: bool, part_b: bool) -> int:
+def main(year: int, day: int, example: bool, part_b: bool) -> int:
     source = (
         EXAMPLE_2
         if example and part_b
-        else EXAMPLE_1 if example else get_data_file(f"day_{day}.txt")
+        else EXAMPLE_1 if example else get_data_file(year, day)
     )
     return get_multiples(source, filtered=part_b)

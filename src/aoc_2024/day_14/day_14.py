@@ -153,7 +153,7 @@ def find_tree(data: str, size: tuple[int, int]):
             return i
 
 
-def main(day: int, example: bool, part_b: bool) -> int:
-    source = EXAMPLE if example else get_data_file(f"day_{day}.txt")
+def main(year: int, day: int, example: bool, part_b: bool) -> int:
+    source = EXAMPLE if example else get_data_file(year, day)
     size = (11, 7) if example else (101, 103)
     return find_tree(source, size) if part_b else safest_quadrant(source, size, 100)
