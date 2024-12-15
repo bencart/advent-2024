@@ -15,7 +15,6 @@ def get_data_file(year: int, day: int) -> str:
     path = get_data_file_path(f"{year}-{day}.txt")
     if not os.path.exists(path):
         url = URL_TEMPLATE.format(year=year, day=day)
-        print(url)
         with requests.get(
             url, headers={"Cookie": f"session={COOKIE}"}, stream=True
         ) as r:
@@ -25,6 +24,17 @@ def get_data_file(year: int, day: int) -> str:
 
     with open(path, "r", encoding="utf-8") as file:
         return file.read()
+
+
+def get_lines(
+    data: str, strip_empty: bool = True, strip_lines: bool = True
+) -> list[str]:
+    lines = data.strip().split("\n")
+    if strip_empty:
+        lines = [line for line in lines if line and line.strip()]
+    if strip_lines:
+        lines = [line.strip() for line in lines]
+    return lines
 
 
 def get_data(data: str, column: bool = False):
