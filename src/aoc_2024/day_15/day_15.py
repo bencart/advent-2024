@@ -1,8 +1,6 @@
 from common.constants import MOVEMENTS
 from common.input import get_lines, get_data_file
-
-Coordinate = tuple[int, int]
-Grid = dict[Coordinate, str]
+from common.types import Grid, Coordinate
 
 EXAMPLE = """
 ##########
@@ -143,18 +141,6 @@ def update_grid(
     elif dy != 0:
         return move_robot_along_axis(grid, ry, dy, rx, single_axis_y)
     return rx, ry
-
-
-def print_grid(grid: Grid) -> None:
-    rows = sum(1 for k in grid.keys() if k[1] == 0)
-    cols = sum(1 for k in grid.keys() if k[0] == 0)
-
-    for x in range(rows):
-        line = ""
-        for y in range(cols):
-            line += grid.get((x, y), ".")
-        print(line)
-    print("")
 
 
 def sum_gps_of_executed_plan(data: str, wide: bool) -> int:

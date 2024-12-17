@@ -16,7 +16,7 @@ def get_data_file(year: int, day: int) -> str:
     if not os.path.exists(path):
         url = URL_TEMPLATE.format(year=year, day=day)
         with requests.get(
-            url, headers={"Cookie": f"session={COOKIE}"}, stream=True
+                url, headers={"Cookie": f"session={COOKIE}"}, stream=True
         ) as r:
             with open(path, "wb") as f:
                 for chunk in r.iter_content(chunk_size=8192):
@@ -27,7 +27,7 @@ def get_data_file(year: int, day: int) -> str:
 
 
 def get_lines(
-    data: str, strip_empty: bool = True, strip_lines: bool = True
+        data: str, strip_empty: bool = True, strip_lines: bool = True
 ) -> list[str]:
     lines = data.strip().split("\n")
     if strip_empty:
