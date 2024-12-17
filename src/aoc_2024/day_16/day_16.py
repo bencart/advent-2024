@@ -170,7 +170,3 @@ def main(year: int, day: int, example: bool, part_b: bool) -> int:
         large = shortest_route(EXAMPLE_2, part_b)
         return (small, large)
     return shortest_route(get_data_file(year, day), part_b)
-
-
-if __name__ == "__main__":
-    print(main(2024, 16, False, True))
