@@ -25,7 +25,7 @@ def build_graph(grid: Grid) -> tuple[Coordinate, Coordinate, Grid]:
 
 
 def a_star(
-        start: Coordinate, end: Coordinate, direction: Coordinate, neighbors: Grid
+    start: Coordinate, end: Coordinate, direction: Coordinate, neighbors: Grid
 ) -> tuple[int, Coordinate, dict[Coordinate, Coordinate]]:
     heap = [(0, start, direction)]
     g_cost = {start: 0}
@@ -48,12 +48,12 @@ def a_star(
 
 
 def find_good_seats(
-        start: Coordinate,
-        end: Coordinate,
-        start_dir: Coordinate,
-        neighbors: Grid,
-        cost: int,
-        optimal_path: list[Coordinate],
+    start: Coordinate,
+    end: Coordinate,
+    start_dir: Coordinate,
+    neighbors: Grid,
+    cost: int,
+    optimal_path: list[Coordinate],
 ) -> set[Coordinate]:
     stack = [start]
     finished = {start}
@@ -77,7 +77,7 @@ def find_good_seats(
 
 
 def backtrack_path(
-        parent_map: dict[Coordinate, Coordinate], end: Coordinate
+    parent_map: dict[Coordinate, Coordinate], end: Coordinate
 ) -> list[Coordinate]:
     cells = []
     current = end
