@@ -111,7 +111,3 @@ def main(year: int, day: int, example: bool, part_b: bool) -> int:
     grid = (6, 6) if example else (70, 70)
     ticks = 12 if example else 1024
     return shortest_path(source, grid, 0 if part_b else ticks)
-
-
-if __name__ == "__main__":
-    print(main(2024, 18, False, True))
