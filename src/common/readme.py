@@ -32,7 +32,7 @@ def write_readme_solution_links(main_methods: dict[int, list]):
         main = [r for r in day_methods if not r.get("alternate") and r.get("main")][0]
         alt = [r for r in day_methods if r.get("alternate") and r.get("main")]
         lines.append(
-            f"{day}. https://github.com/bencart/advent-2024/blob/main/src/days/{main["path"]}.py"
+            f"{day}. https://github.com/bencart/advent-2024/blob/main/src/aoc_{YEAR}/{main["path"]}.py"
         )
         if alt:
             for r in alt:
