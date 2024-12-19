@@ -46,9 +46,9 @@ def find_solvable_patterns(patterns: list[str], available: set[str]) -> list[str
 
 def count_solutions(pattern: str, available: set[str]) -> int:
     length = len(pattern)
-    lengths = defaultdict(list)
+    lengths = defaultdict(set)
     for a in available:
-        lengths[len(a)].append(a)
+        lengths[len(a)].add(a)
     solutions = [0] * (length + 1)
     solutions[0] = 1
 
@@ -71,10 +71,9 @@ def count_all_possible_solutions(patterns: list[str], available: set[str]) -> in
 
 def find_towels(data: str, all_possibles: bool) -> int:
     available, patterns = parse_input(data)
-    solvable_patterns = find_solvable_patterns(patterns, available)
     if all_possibles:
-        return count_all_possible_solutions(solvable_patterns, available)
-    return len(solvable_patterns)
+        return count_all_possible_solutions(patterns, available)
+    return len(find_solvable_patterns(patterns, available))
 
 
 def main(year: int, day: int, example: bool, part_b: bool) -> int:
