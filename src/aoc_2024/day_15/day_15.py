@@ -71,7 +71,7 @@ def sum_coordinate(a: Coordinate, b: Coordinate) -> Coordinate:
 
 
 def move_robot_along_axis(
-        grid: Grid, start: int, delta: int, fixed: int, to_key: callable
+    grid: Grid, start: int, delta: int, fixed: int, to_key: callable
 ) -> Coordinate:
     for coord in range(start, 0 if delta < 0 else len(grid), delta):
         key = to_key(coord, fixed)
@@ -88,7 +88,7 @@ def move_robot_along_axis(
 
 
 def move_robot_with_boxes(
-        grid: Grid, start: Coordinate, delta: Coordinate
+    grid: Grid, start: Coordinate, delta: Coordinate
 ) -> Coordinate:
     desired = sum_coordinate(start, delta)
     up = delta[0] == -1
@@ -128,7 +128,7 @@ def move_robot_with_boxes(
 
 
 def update_grid(
-        grid: Grid, robot: Coordinate, move: str, boxes: bool
+    grid: Grid, robot: Coordinate, move: str, boxes: bool
 ) -> tuple[int, int]:
     dx, dy = OFFSETS[move]
     rx, ry = robot

@@ -96,10 +96,10 @@ class ThreeBit(object):
             if not skip:
                 self.pointer += 2
             if (
-                    validate >= 0
-                    and self.output
-                    and len(self.output) > validate
-                    and self.output[validate] != self.program[validate]
+                validate >= 0
+                and self.output
+                and len(self.output) > validate
+                and self.output[validate] != self.program[validate]
             ):
                 break
         return ",".join(map(str, self.output))
@@ -114,16 +114,16 @@ class ThreeBit(object):
     def reverse_engineer(self) -> int:
         length = len(self.program) - 1
         queue = Queue()
-        queue.put((8 ** length, 8 ** (length + 1), length))
+        queue.put((8**length, 8 ** (length + 1), length))
         while not queue.empty():
             lower, upper, index = queue.get()
-            for guess in range(lower, upper, 8 ** index):
+            for guess in range(lower, upper, 8**index):
                 self.reset()
                 self.reg_a = guess
                 self.execute_program(index)
                 if self.output[index] == self.program[index]:
                     if index > 0:
-                        queue.put((guess, guess + 8 ** index, index - 1))
+                        queue.put((guess, guess + 8**index, index - 1))
                     else:
                         return guess
         return None

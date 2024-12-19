@@ -36,7 +36,7 @@ EXAMPLE = """
 
 
 def create_maze(
-        data: str, size: tuple[int, int], ticks: int
+    data: str, size: tuple[int, int], ticks: int
 ) -> tuple[Grid, int, int, list[Coordinate]]:
     coords = [
         tuple(map(int, line.strip().split(",")))
@@ -51,8 +51,8 @@ def create_maze(
     return grid, size[0] + 1, size[1] + 1, coords
 
 
-def a_star(
-        start: Coordinate, end: Coordinate, neighbors: Grid
+def djisktra(
+    start: Coordinate, end: Coordinate, neighbors: Grid
 ) -> tuple[int, dict[Coordinate, Coordinate]]:
     heap = [(0, start)]
     g_cost = {start: 0}
@@ -73,7 +73,7 @@ def a_star(
 
 
 def backtrack_path(
-        parent_map: dict[Coordinate, Coordinate], end: Coordinate
+    parent_map: dict[Coordinate, Coordinate], end: Coordinate
 ) -> list[Coordinate]:
     cells = []
     current = end
@@ -84,11 +84,18 @@ def backtrack_path(
 
 
 def find_shortest_path(
-        start: Coordinate, end: Coordinate, neighbor_grid: Grid
+    start: Coordinate, end: Coordinate, neighbor_grid: Grid
 ) -> Coordinate:
-    cost, parents = a_star(start, end, neighbor_grid)
+    cost, parents = djisktra(start, end, neighbor_grid)
     path = backtrack_path(parents, end)
     return path
+
+
+def remove_neighbors(neighbor_grid: Grid, coordinate: Coordinate) -> Grid:
+    neighbors = neighbor_grid.get(coordinate, [])
+    for neighbor in neighbors:
+        neighbor_grid[neighbor].remove(coordinate)
+    neighbor_grid[coordinate] = []
 
 
 def shortest_path(data: str, size: tuple[int, int], ticks: int):
@@ -99,7 +106,7 @@ def shortest_path(data: str, size: tuple[int, int], ticks: int):
     else:
         path = [coords[0]]
         for coord in coords:
-            del neighbor_grid[coord]
+            remove_neighbors(neighbor_grid, coord)
             if coord in path:
                 path = find_shortest_path(start, end, neighbor_grid)
             if not path:
