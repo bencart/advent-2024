@@ -60,7 +60,7 @@ def all_buttons(from_co: Coordinate, moves: list[Coordinate]) -> list[Coordinate
 @dataclass
 class Layout():
     layout: Grid
-    _path_options: dict[tuple[str, str], list[str]] = field(default_factory=dict)
+    _paths: dict[tuple[str, str], list[str]] = field(default_factory=dict)
 
     def __post_init__(self):
         for from_co, from_v in self.layout.items():
@@ -72,7 +72,7 @@ class Layout():
                 path_a = path_a if valid_a else path_b
                 path_b = path_b if valid_b else path_a
 
-                self._path_options[(from_v, to_v)] = [path_a, path_b]
+                self._paths[(from_v, to_v)] = [path_a, path_b]
 
     def _get_path(self, from_co: Coordinate, moves: list[Coordinate]) -> tuple[str, bool]:
         buttons = all_buttons(from_co, moves)
@@ -83,30 +83,30 @@ class Layout():
         return self.layout.items()
 
     def path_options(self, key: tuple[str, str]) -> list[str]:
-        return self._path_options.get(key, [])
+        return self._paths.get(key, [])
 
 
 @dataclass
 class Keypad():
     layout: Layout
     child: Optional["Keypad"] = None
-    _route_dict: dict[tuple, str] = field(default_factory=dict)
+    _paths: dict[tuple, str] = field(default_factory=dict)
 
     def __post_init__(self):
-        self._populate_routes()
+        self._populate_paths()
 
-    def _populate_routes(self):
+    def _populate_paths(self):
         for from_co, from_v in self.layout.items():
             for to_co, to_v in self.layout.items():
                 paths = self.layout.path_options((from_v, to_v))
                 if self.child is None:
-                    self._route_dict[(from_v, to_v)] = paths[0]
+                    self._paths[(from_v, to_v)] = paths[0]
                 else:
                     a = paths[0]
                     a_path = self.child.shortest_path(a)
                     b = paths[-1]
                     b_path = self.child.shortest_path(b) if a != b else a_path
-                    self._route_dict[(from_v, to_v)] = b_path if len(b_path) < len(a_path) else a_path
+                    self._paths[(from_v, to_v)] = b_path if len(b_path) < len(a_path) else a_path
 
     def shortest_path(self, path: str):
         movements = "A" + path
@@ -114,22 +114,25 @@ class Keypad():
         for i in range(len(movements) - 1):
             from_m = movements[i]
             to_m = movements[i + 1]
-            result += self._route_dict[(from_m, to_m)]
+            result += self._paths[(from_m, to_m)]
         return result
 
 
-def enter_keypad(data: str, arrows: int):
+def build_keypads(arrows: int) -> Keypad:
     arrow_keys = Layout(ARROW_KEYPAD)
     number_keys = Layout(NUMERIC_KEYPAD)
-    data_entry = Keypad(arrow_keys)
-    child = data_entry
+    child = Keypad(arrow_keys)
     for i in range(arrows - 1):
         child = Keypad(arrow_keys, child)
-    numeric = Keypad(number_keys, child)
+    return Keypad(number_keys, child)
+
+
+def enter_keypad(data: str, arrows: int):
+    data_entry = build_keypads(arrows)
     codes = get_lines(data)
     complexities = []
     for code in codes:
-        keys = numeric.shortest_path(code)
+        keys = data_entry.shortest_path(code)
         complexities.append(int(code[:3]) * len(keys))
     return sum(complexities)
 
