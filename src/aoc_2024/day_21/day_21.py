@@ -93,7 +93,6 @@ class Keypad():
     _route_dict: dict[tuple, str] = field(default_factory=dict)
 
     def __post_init__(self):
-        self.pointer = next(k for k, v in self.layout.items() if v == "A")
         self._populate_routes()
 
     def _populate_routes(self):
