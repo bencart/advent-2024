@@ -32,12 +32,12 @@ class Keypad(KP):
 
 
 def enter_keypad(data: str, arrows: int):
-    data_entry = build_keypads(arrows)
+    data_entry = build_keypads(arrows, Keypad)
     codes = get_lines(data)
     complexities = []
     for code in codes:
         keys = data_entry.shortest_path(code)
-        complexities.append(int(code[:3]) * len(keys))
+        complexities.append(int(code[:3]) * keys)
     return sum(complexities)
 
 
@@ -45,3 +45,7 @@ def main(year: int, day: int, example: bool, part_b: bool) -> int:
     source = EXAMPLE if example else get_data_file(year, day)
     arrows = 25 if part_b else 2
     return enter_keypad(source, arrows)
+
+
+if __name__ == "__main__":
+    main(2024, 21, False, True)

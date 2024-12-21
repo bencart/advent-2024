@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import Optional
+from typing import Optional, Type
 
 from common.input import get_data_file, get_lines
 from common.types import Coordinate, Grid
@@ -118,17 +118,17 @@ class Keypad():
         return result
 
 
-def build_keypads(arrows: int) -> Keypad:
+def build_keypads(arrows: int, KeypadType: Type):
     arrow_keys = Layout(ARROW_KEYPAD)
     number_keys = Layout(NUMERIC_KEYPAD)
-    child = Keypad(arrow_keys)
+    child = KeypadType(arrow_keys)
     for i in range(arrows - 1):
-        child = Keypad(arrow_keys, child)
-    return Keypad(number_keys, child)
+        child = KeypadType(arrow_keys, child)
+    return KeypadType(number_keys, child)
 
 
 def enter_keypad(data: str, arrows: int):
-    data_entry = build_keypads(arrows)
+    data_entry = build_keypads(arrows, Keypad)
     codes = get_lines(data)
     complexities = []
     for code in codes:
