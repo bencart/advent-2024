@@ -76,7 +76,3 @@ def main(year: int, day: int, example: bool, part_b: bool) -> any:
         return
     source = EXAMPLE if example else get_data_file(year, day)
     return find_lock_keys(source)
-
-
-if __name__ == "__main__":
-    print(main(2024, 25, False, False))
